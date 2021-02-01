@@ -12,9 +12,7 @@ import {
 const handlers = {
     [ADD_TODO]: (state, { title }) => ({
         ...state,
-        todos: [
-            ...state.todos, { title, id },
-        ],
+        todos: [...state.todos, { title, id }],
     }),
     [DELETE_TODO]: (state, { id }) => ({
         ...state,

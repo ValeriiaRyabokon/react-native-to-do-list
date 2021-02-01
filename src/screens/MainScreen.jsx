@@ -13,8 +13,8 @@ import { AppLoader } from "../components/ui/AppLoader";
 import { ScreenContext } from "../context/screen/screenContext";
 import { TodoContext } from "../context/todo/todoContext";
 import { THEME } from "../theme";
-import {AppButton} from '../components/ui/AppButton'
-import {AppText} from '../components/ui/AppText'
+import { AppButton } from "../components/ui/AppButton";
+import { AppText } from "../components/ui/AppText";
 
 export const MainScreen = () => {
   const [deviceWidth, setDeviceWidth] = useState(
@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
   },
-  center:{
-   justifyContent:"center",
-   alignItems:'center'
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
   },
-  error:{
-    color:'red',
-    fontSize:20
-  }
+  error: {
+    color: "red",
+    fontSize: 20,
+  },
 });

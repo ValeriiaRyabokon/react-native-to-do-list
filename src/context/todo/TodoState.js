@@ -13,7 +13,7 @@ import {
   UPDATE_TODO,
 } from "../types";
 import { ScreenContext } from "../screen/screenContext";
-import {Http} from '../../http'
+import { Http } from "../../http";
 
 export const TodoState = ({ children }) => {
   const initialState = {
@@ -25,7 +25,10 @@ export const TodoState = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState);
 
   const addTodo = async (title) => {
-    const data= await Http.post('https://react-native-to-do-list-3c052-default-rtdb.firebaseio.com/todos.json', {title})
+    const data = await Http.post(
+      "https://react-native-to-do-list-3c052-default-rtdb.firebaseio.com/todos.json",
+      { title }
+    );
     dispatch({ type: ADD_TODO, id: data.name, title });
   };
   const deleteTodo = (id) => {
@@ -43,7 +46,9 @@ export const TodoState = ({ children }) => {
           style: "destructive",
           onPress: async () => {
             changeScreen(null);
-            await Http.delete(`https://react-native-to-do-list-3c052-default-rtdb.firebaseio.com/todos/${id}.json`)
+            await Http.delete(
+              `https://react-native-to-do-list-3c052-default-rtdb.firebaseio.com/todos/${id}.json`
+            );
             dispatch({ type: DELETE_TODO, id });
           },
         },
@@ -53,30 +58,34 @@ export const TodoState = ({ children }) => {
   };
   const fetchTodos = async () => {
     showLoader();
-    clearError()
+    clearError();
     try {
-      const data = await Http.get("https://react-native-to-do-list-3c052-default-rtdb.firebaseio.com/todos.json")
+      const data = await Http.get(
+        "https://react-native-to-do-list-3c052-default-rtdb.firebaseio.com/todos.json"
+      );
       const todos = Object.keys(data).map((key) => ({ ...data[key], id: key }));
       dispatch({ type: FETCH_TODOS, todos });
     } catch (e) {
       showError("Something wrong...");
       console.log(e);
-    } finally{
+    } finally {
       hideLoader();
     }
-};
+  };
 
   const updateTodo = async (id, title) => {
-    clearError()
+    clearError();
     try {
-      await Http.patch(`https://react-native-to-do-list-3c052-default-rtdb.firebaseio.com/todos/${id}.json`, {title})
-     dispatch({ type: UPDATE_TODO, id, title }); 
-    } catch(e){
+      await Http.patch(
+        `https://react-native-to-do-list-3c052-default-rtdb.firebaseio.com/todos/${id}.json`,
+        { title }
+      );
+      dispatch({ type: UPDATE_TODO, id, title });
+    } catch (e) {
       showError("Something wrong...");
       console.log(e);
     }
-
-  }
+  };
   const showLoader = () => dispatch({ type: SHOW_LOADER });
   const hideLoader = () => dispatch({ type: HIDE_LOADER });
   const showError = (error) => dispatch({ type: SHOW_ERROR, error });
